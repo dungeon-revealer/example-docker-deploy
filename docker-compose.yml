@@ -1,0 +1,25 @@
+---
+version: '2'
+
+services:
+  caddy:
+    image: caddy
+    container_name: caddy
+    volumes:
+      - </ABSOLUTE/PATH/TO>/caddy/data:/data
+      - </ABSOLUTE/PATH/TO>/caddy/config:/config
+      - </ABSOLUTE/PATH/TO>/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+
+  dungeon-revealer:
+    image: dungeonrevealer/dungeon-revealer:v1.17.1 # You can choose which version to use here
+    container_name: dun_rev
+    environment:
+      - DM_PASSWORD=<YOUR_DM_PASSWORD>
+      - PC_PASSWORD=<YOUR_PC_PASSWORD>
+    volumes:
+      - </ABSOLUTE/PATH/TO>/dungeon-revealer/data:/usr/src/app/data
+    restart: unless-stopped
